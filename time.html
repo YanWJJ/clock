@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<title>图片时钟</title>
+	<style>
+		ul{
+			list-style: none;
+			display: inline-block;
+		} 
+		li{
+			position: relative;
+			width: 125px;
+			height: 185px;
+			overflow: hidden;
+			float: left;
+		}
+		.m1 img:nth-child(1){
+			position: absolute;
+			top:0px;
+		}
+		.m1 img:nth-child(2){
+			position: absolute;
+			top:185px;
+		}
+		.m2 img:nth-child(1){
+			position: absolute;
+			top:0px;
+		}
+		.m2 img:nth-child(2){
+			position: absolute;
+			top:185px;
+		}
+		.h1 img:nth-child(1){
+			position: absolute;
+			top:0px;
+		}
+		.h1 img:nth-child(2){
+			position: absolute;
+			top:185px;
+		}
+		.h2 img:nth-child(1){
+			position: absolute;
+			top:0px;
+		}
+		.h2 img:nth-child(2){
+			position: absolute;
+			top:185px;
+		}
+		.s1 img:nth-child(1){
+			position: absolute;
+			top:0px;
+		}
+		.s1 img:nth-child(2){
+			position: absolute;
+			top:185px;
+		}
+		.s2 img:nth-child(1){
+			position: absolute;
+			top:0px;
+		}
+		.s2 img:nth-child(2){
+			position: absolute;
+			top:185px;
+		}
+		.d1 img{
+			position: absolute;
+			top:0px;
+		}
+		.d1 div:nth-of-type(1){
+			position: absolute;
+			height: 20px;
+			width: 20px;
+			left: 50px;
+			top:53px;
+			background: -webkit-linear-gradient(top,#2E2E2E,#202020);
+			background: -o-linear-gradient(top,#2E2E2E,#202020);
+			background: -moz-linear-gradient(top,#2E2E2E,#202020);
+			background: -ms-linear-gradient(top,#2E2E2E,#202020);
+			background: linear-gradient(top,#2E2E2E,#202020);
+		}
+		.d1 div:nth-of-type(2){
+			position: absolute;
+			height: 20px;
+			width: 20px;
+			background-color: #101010;
+			left: 49px;
+			top:102px;
+			background: -webkit-linear-gradient(top,#121212,#101010);
+			background: -moz-linear-gradient(top,#121212,#101010);
+			background: -ms-linear-gradient(top,#121212,#101010);
+			background: -o-linear-gradient(top,#121212,#101010);
+			background: linear-gradient(top,#121212,#101010);
+		}
+		.d2 img{
+			position: absolute;
+			top:0px;
+		}
+		.d2 div:nth-of-type(1){
+			position: absolute;
+			height: 20px;
+			width: 20px;
+			left: 50px;
+			top:53px;
+			background: -webkit-linear-gradient(top,#2E2E2E,#202020);
+			background: -o-linear-gradient(top,#2E2E2E,#202020);
+			background: -moz-linear-gradient(top,#2E2E2E,#202020);
+			background: -ms-linear-gradient(top,#2E2E2E,#202020);
+			background: linear-gradient(top,#2E2E2E,#202020);
+		}
+		.d2 div:nth-of-type(2){
+			position: absolute;
+			height: 20px;
+			width: 20px;
+			background-color: #101010;
+			left: 49px;
+			top:102px;
+			background: -webkit-linear-gradient(top,#121212,#101010);
+			background: -moz-linear-gradient(top,#121212,#101010);
+			background: -ms-linear-gradient(top,#121212,#101010);
+			background: -o-linear-gradient(top,#121212,#101010);
+			background: linear-gradient(top,#121212,#101010);
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li class="h1"><img src="" alt=""><img src="" alt=""></li>
+		<li class="h2"><img src="" alt=""><img src="" alt=""></li>
+		<li class="d1"><img src="" alt=""><div></div><div></div></li>
+		<li class="m1"><img src="" alt=""><img src="" alt=""></li>
+		<li class="m2"><img src="" alt=""><img src="" alt=""></li>
+		<li class="d2"><img src="" alt=""><div></div><div></div></li>
+		<li class="s1"><img src="" alt=""><img src="" alt=""></li>
+		<li class="s2"><img src="" alt=""><img src="" alt=""></li>
+	</ul>
+	<p></p>
+</body>
+</html>
+<script type="text/javascript">
+	function EventListener(event, type, func){
+		if(event.addEventListener){
+			event.addEventListener(type, func, false);
+		} else if(event.attendEvent){
+			event.attendEvent("on"+type,func);
+		} else {
+			event["on" + type] = func;
+		}
+	}
+	function move(obj,d){
+		for(var i=0; i<50; i++){	 
+			setTimeout(function(){
+				d -= 0.9;
+				obj.style.top = d + "px";
+			},10*i)
+		}
+		for(var i=0; i<50; i++){	 
+			setTimeout(function(){
+				d -= 2.8;
+				obj.style.top = d + "px";
+			},10*i)
+		}
+	}
+	function get_hms(){
+		var date = new Date();
+		var p = document.querySelector('p');
+		// p.innerHTML = date;
+		var n_time = date.toString();
+		var n = n_time.split(" ")[4].split("");
+		n.splice(2,1);
+		n.splice(4,1);
+		return n;
+	}
+	function get_next(n){
+		var next = [];
+		next[5] = parseInt(n[5])+1;
+		if(next[5] == 10){
+			next[5] = 0;
+		}
+		if(next[5] == 0){
+			next[4] = parseInt(n[4])+1;
+		} else {
+			next[4] = parseInt(n[4]);
+		}
+		if(next[4] == 6){
+			next[4] = 0;
+		}
+		if((next[4]==0)&&(next[5]==0)){
+			next[3] = parseInt(n[3])+1;
+		} else {
+			next[3] = parseInt(n[3]);
+		}
+		if(next[3]==10){
+			next[3] = 0;
+		}
+		if((next[3]==0)&&(next[4]==0)&&(next[5]==0)){
+			next[2] = parseInt(n[2])+1;
+		} else {
+			next[2] = parseInt(n[2]);
+		}
+		if(next[2]==6){
+			next[2]==0;
+		}
+		if((next[2]==0)&&(next[3]==0)){
+			next[1] = parseInt(n[1])+1;
+		} else {
+			next[1] = parseInt(n[1]);
+		}
+		if(next[1]==10){
+			next[1]=0;
+		}
+		if(next[0]!=2){
+			if(next[1]==0){
+				next[0] = parseInt(n[0])+1;
+			} else {
+				next[0] = parseInt(n[0]);
+			}
+		} else {
+			if(next[1]==4){
+				next[1] = 0;
+				next[0] = 0;
+			}
+		}
+		return next;		
+	}
+	function show(){
+		var img = document.querySelectorAll('img');
+		var n = get_hms();
+		var next = get_next(n);
+		
+		img[0].src  = "./0" + n[0] + ".JPG";
+		img[1].src  = "./0" + next[0]  + ".JPG";
+		img[2].src  = "./0" + n[1] + ".JPG";
+		img[3].src  = "./0" + next[1]  + ".JPG";
+		img[5].src  = "./0" + n[2] + ".JPG";
+		img[6].src  = "./0" + next[2]  + ".JPG";
+		img[7].src  = "./0" + n[3] + ".JPG";
+		img[8].src  = "./0" + next[3]  + ".JPG";
+		img[10].src = "./0" + n[4] + ".JPG";	
+		img[11].src = "./0" + next[4]  + ".JPG";
+		img[12].src = "./0" + n[5] + ".JPG";
+		img[13].src = "./0" + next[5]  + ".JPG";
+		img[4].src  = "./10.JPG";
+		img[9].src  = "./10.JPG";
+
+		if((next[1]==0)&&(next[2]==0)&&(next[3]==0)&&(next[4]==0)&&(next[5]==0)){
+			move(img[0],0);
+			move(img[1],185);
+		}
+		if((next[2]==0)&&(next[3]==0)&&(next[4]==0)&&(next[5]==0)){
+			move(img[2],0);
+			move(img[3],185);
+		}	
+		if((next[3]==0)&&(next[4]==0)&&(next[5]==0)){
+			move(img[5],0);
+			move(img[6],185);
+		}		
+		if((next[4]==0)&&(next[5]==0)){
+			move(img[7],0);
+			move(img[8],185);
+		}
+		if(next[5]==0){
+			move(img[10],0);
+			move(img[11],185);
+		}
+		move(img[12],0);
+		move(img[13],185);	
+	}
+	var y = true;
+	window.onload = show;
+	function f(){
+		var div = document.querySelectorAll('div');
+		if(y){
+			for(var i=0; i<4; i++){
+				div[i].style.display = "none";
+			}	
+			y = !y;		
+		} else{
+			for(var i=0; i<4; i++){
+				div[i].style.display = "block";
+			}	
+			y = !y;				
+		}
+	}
+	setInterval(show, 1000);
+	setInterval(f, 500);
+</script>
